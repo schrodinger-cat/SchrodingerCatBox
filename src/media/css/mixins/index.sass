@@ -1,0 +1,42 @@
+//Grid
+
+=cols($cols, $max-cols)
+	width: (100%/$max-cols*$cols)
+
+=offset($offset-cols, $max-cols)
+	@if $offset-cols == 0
+		margin-left: 0
+	@else
+		margin-left: (100%/$max-cols*$offset-cols)
+
+//Helpers
+
+=br($radius)
+	border-radius: $radius
+
+=cover
+	background-size: cover
+
+=box
+	box-sizing: border-box
+
+=clearfix
+	*zoom: 1
+
+	&:before, &:after
+		content: ' '
+		display: table
+
+	&:after
+		clear: both
+
+//Fonts
+//Example: +font-face('gotham', '/fonts/gotham');
+
+=font-face($font-name, $file-name, $weight: normal, $style: normal)
+  @font-face
+    font-family: quote($font-name)
+    src: url($file-name + ".eot")
+    src: url($file-name + ".eot?#iefix") format("embedded-opentype"), url($file-name + ".woff") format("woff"), url($file-name + ".ttf") format("truetype"), url($file-name + ".svg##{$font-name}") format("svg")
+    font-weight: $weight
+    font-style: $style
