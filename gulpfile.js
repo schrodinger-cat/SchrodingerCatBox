@@ -3,6 +3,7 @@ var sass          = require('gulp-sass');
 var autoprefixer  = require('gulp-autoprefixer');
 var sourcemaps    = require('gulp-sourcemaps');
 var browserSync   = require('browser-sync');
+var jade          = require('gulp-jade');
 var useref        = require('gulp-useref');
 var uglify        = require('gulp-uglify');
 var gulpIf        = require('gulp-if');
@@ -19,7 +20,7 @@ var runSequence   = require('run-sequence');
 gulp.task('browserSync', function() {
   browserSync({
     server: {
-      baseDir: 'src'
+      baseDir: 'build'
     },
     logPrefix: 'Schrodinger-cat-box',
     open: false,
@@ -36,10 +37,17 @@ gulp.task('sass', function() {
     }));
 })
 
+gulp.task('jade', function() {
+ 
+  gulp.src('./src/*.jade')
+    .pipe(jade())
+    .pipe(gulp.dest('./build/'))
+});
+
 // Watchers
 gulp.task('watch', function() {
   gulp.watch('src/media/css/**/*.sass', ['sass']);
-  gulp.watch('src/*.html', browserSync.reload);
+  gulp.watch('src/**/*.jade', ['jade']);
   gulp.watch('src/media/js/**/*.js', browserSync.reload);
 })
 
@@ -49,7 +57,7 @@ gulp.task('watch', function() {
 // Optimizing CSS and JavaScript 
 gulp.task('useref', function() {
 
-  return gulp.src('src/**/*.html')
+  return gulp.src('src/**/*.jade')
     .pipe(useref())
     .pipe(gulpIf('*.js', uglify()))
     .pipe(gulpIf('*.css', cssnano()))
@@ -74,12 +82,12 @@ gulp.task('fonts', function() {
 
 // Cleaning 
 gulp.task('clean', function() {
-  return del.sync('dist').then(function(cb) {
+  return del.sync('build').then(function(cb) {
     return cache.clearAll(cb);
   });
 })
 
-gulp.task('clean:dist', function() {
+gulp.task('clean:build', function() {
   return del.sync(['build/**/*', '!build/media/img', '!build/media/img/**/*']);
 });
 
@@ -87,15 +95,16 @@ gulp.task('clean:dist', function() {
 // ---------------
 
 gulp.task('default', function(callback) {
-  runSequence(['sass', 'browserSync', 'watch'],
+  runSequence(['jade', 'sass', 'browserSync', 'watch'],
     callback
   )
 })
 
 gulp.task('build', function(callback) {
   runSequence(
-    'clean:dist',
+    'clean:build',
     'sass',
+    'jade',
     ['useref', 'images', 'fonts'],
     callback
   )
