@@ -50,6 +50,9 @@ gulp.task('jade', function() {
   gulp.src('./src/*.jade')
     .pipe(jade())
     .pipe(gulp.dest('./build/'))
+    .pipe(browserSync.reload({ // Reloading with Browser Sync
+      stream: true
+    }))
 });
 
 gulp.task('sprite', function() {
