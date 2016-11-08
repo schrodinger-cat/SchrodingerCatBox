@@ -14,6 +14,7 @@ var del           = require('del');
 var runSequence   = require('run-sequence');
 var postcss       = require('gulp-postcss');
 var autoprefixer  = require('autoprefixer');
+var spritesmith   = require('gulp.spritesmith');
 
 // Development Tasks 
 // -----------------
@@ -51,10 +52,29 @@ gulp.task('jade', function() {
     .pipe(gulp.dest('./build/'))
 });
 
+gulp.task('sprite', function() {
+  del.sync('./src/media/css/sprite.sass');
+  var spriteData = 
+    gulp.src('./src/media/img/sprites/*.*')
+      .pipe(spritesmith({
+        imgName: 'sprite.png',
+        cssName: 'sprite.sass',
+        cssFormat: 'sass',
+        algorithm: 'binary-tree',
+        cssVarMap: function(sprite) {
+            sprite.name = 's-' + sprite.name
+        }
+      }));
+
+  spriteData.img.pipe(gulp.dest('./build/img/'));
+  spriteData.css.pipe(gulp.dest('./src/media/css/'));
+});
+
 // Watchers
 gulp.task('watch', function() {
   gulp.watch('src/media/css/**/*.sass', ['sass']);
   gulp.watch('src/**/*.jade', ['jade']);
+  gulp.watch('src/media/img/*.*', ['sprite']);
   gulp.watch('src/media/js/**/*.js', browserSync.reload);
 })
 
@@ -102,7 +122,7 @@ gulp.task('clean:build', function() {
 // ---------------
 
 gulp.task('default', function(callback) {
-  runSequence(['jade', 'sass', 'browserSync', 'watch'],
+  runSequence(['jade', 'sass', 'images', 'sprite', 'browserSync', 'watch'],
     callback
   )
 })
@@ -112,7 +132,7 @@ gulp.task('build', function(callback) {
     'clean:build',
     'sass',
     'jade',
-    ['useref', 'images', 'fonts'],
+    ['useref', 'images', 'sprite', 'fonts'],
     callback
   )
 })
