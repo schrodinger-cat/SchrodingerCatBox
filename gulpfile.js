@@ -56,9 +56,9 @@ gulp.task('jade', function() {
 });
 
 gulp.task('sprite', function() {
-  del.sync('./src/media/css/sprite.sass');
+  //del.sync('./src/media/css/sprite.sass');
   var spriteData = 
-    gulp.src('./src/media/img/sprites/*.*')
+    gulp.src('./src/media/img/*.*')
       .pipe(spritesmith({
         imgName: 'sprite.png',
         cssName: 'sprite.sass',
@@ -69,7 +69,7 @@ gulp.task('sprite', function() {
         }
       }));
 
-  spriteData.img.pipe(gulp.dest('./build/img/'));
+  spriteData.img.pipe(gulp.dest('./build/media/img/'));
   spriteData.css.pipe(gulp.dest('./src/media/css/'));
 });
 
