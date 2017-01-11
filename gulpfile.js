@@ -8,6 +8,8 @@ var useref        = require('gulp-useref');
 var uglify        = require('gulp-uglify');
 var gulpIf        = require('gulp-if');
 var cssnano       = require('cssnano');
+var concat        = require('gulp-concat');
+var gutil         = require('gulp-util');
 var imagemin      = require('gulp-imagemin');
 var cache         = require('gulp-cache');
 var del           = require('del');
@@ -58,14 +60,19 @@ gulp.task('jade', function() {
 gulp.task('sprite', function() {
   //del.sync('./src/media/css/sprite.sass');
   var spriteData = 
-    gulp.src('./src/media/img/*.*')
+    gulp.src('./src/media/img/sprites/*.*')
       .pipe(spritesmith({
         imgName: 'sprite.png',
+        imgPath: '../img/sprite.png',
+        // retina support
+        // retinaSrcFilter: ['./src/media/img/sprites/*@2x.*'],
+        // retinaImgName: 'sprite@2x.png',
+        // retinaImgPath: '../img/sprite@2x.png',
         cssName: 'sprite.sass',
         cssFormat: 'sass',
         algorithm: 'binary-tree',
         cssVarMap: function(sprite) {
-            sprite.name = 's-' + sprite.name
+          sprite.name = 's-' + sprite.name
         }
       }));
 
@@ -73,12 +80,25 @@ gulp.task('sprite', function() {
   spriteData.css.pipe(gulp.dest('./src/media/css/'));
 });
 
+gulp.task('js', function() {
+  return gulp.src('src/media/js/**/*.js')
+    .pipe(sourcemaps.init())
+      .pipe(concat('main.js'))
+      //only uglify if gulp is ran with '--type production'
+      .pipe(gutil.env.type === 'production' ? uglify() : gutil.noop()) 
+    .pipe(sourcemaps.write())
+    .pipe(gulp.dest('build/media/js'))
+    .pipe(browserSync.reload({ // Reloading with Browser Sync
+      stream: true
+    }))
+});
+
 // Watchers
 gulp.task('watch', function() {
   gulp.watch('src/media/css/**/*.sass', ['sass']);
   gulp.watch('src/**/*.jade', ['jade']);
-  gulp.watch('src/media/img/*.*', ['sprite']);
-  gulp.watch('src/media/js/**/*.js', browserSync.reload);
+  gulp.watch('src/media/img/sprites/*.*', ['sprite']);
+  gulp.watch('src/media/js/**/*.js', ['js']);
 })
 
 // Optimization Tasks 
@@ -86,7 +106,6 @@ gulp.task('watch', function() {
 
 // Optimizing CSS and JavaScript 
 gulp.task('useref', function() {
-
   return gulp.src('src/**/*.jade')
     .pipe(useref())
     .pipe(gulpIf('*.js', uglify()))

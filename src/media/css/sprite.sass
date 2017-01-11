@@ -1,0 +1,160 @@
+/*
+  SASS variables are information about icon's compiled state, stored under its original file name
+
+  .icon-home
+    width: $icon-home-width
+
+  The large array-like variables contain all information about a single icon
+  $icon-home: x y offset_x offset_y width height total_width total_height image_path
+
+  At the bottom of this section, we provide information about the spritesheet itself
+  $spritesheet: width height image $spritesheet-sprites
+  */
+$s-app-store-name: 's-app-store'
+$s-app-store-x: 560px
+$s-app-store-y: 204px
+$s-app-store-offset-x: -560px
+$s-app-store-offset-y: -204px
+$s-app-store-width: 280px
+$s-app-store-height: 90px
+$s-app-store-total-width: 908px
+$s-app-store-total-height: 552px
+$s-app-store-image: '../img/sprite.png'
+$s-app-store: (560px, 204px, -560px, -204px, 280px, 90px, 908px, 552px, '../img/sprite.png', 's-app-store', )
+$s-app-store-2x-name: 's-app-store@2x'
+$s-app-store-2x-x: 0px
+$s-app-store-2x-y: 0px
+$s-app-store-2x-offset-x: 0px
+$s-app-store-2x-offset-y: 0px
+$s-app-store-2x-width: 560px
+$s-app-store-2x-height: 180px
+$s-app-store-2x-total-width: 908px
+$s-app-store-2x-total-height: 552px
+$s-app-store-2x-image: '../img/sprite.png'
+$s-app-store-2x: (0px, 0px, 0px, 0px, 560px, 180px, 908px, 552px, '../img/sprite.png', 's-app-store@2x', )
+$s-baloon-end-name: 's-baloon-end'
+$s-baloon-end-x: 880px
+$s-baloon-end-y: 204px
+$s-baloon-end-offset-x: -880px
+$s-baloon-end-offset-y: -204px
+$s-baloon-end-width: 20px
+$s-baloon-end-height: 40px
+$s-baloon-end-total-width: 908px
+$s-baloon-end-total-height: 552px
+$s-baloon-end-image: '../img/sprite.png'
+$s-baloon-end: (880px, 204px, -880px, -204px, 20px, 40px, 908px, 552px, '../img/sprite.png', 's-baloon-end', )
+$s-baloon-end-2x-name: 's-baloon-end@2x'
+$s-baloon-end-2x-x: 840px
+$s-baloon-end-2x-y: 204px
+$s-baloon-end-2x-offset-x: -840px
+$s-baloon-end-2x-offset-y: -204px
+$s-baloon-end-2x-width: 40px
+$s-baloon-end-2x-height: 80px
+$s-baloon-end-2x-total-width: 908px
+$s-baloon-end-2x-total-height: 552px
+$s-baloon-end-2x-image: '../img/sprite.png'
+$s-baloon-end-2x: (840px, 204px, -840px, -204px, 40px, 80px, 908px, 552px, '../img/sprite.png', 's-baloon-end@2x', )
+$s-google-play-name: 's-google-play'
+$s-google-play-x: 0px
+$s-google-play-y: 360px
+$s-google-play-offset-x: 0px
+$s-google-play-offset-y: -360px
+$s-google-play-width: 280px
+$s-google-play-height: 90px
+$s-google-play-total-width: 908px
+$s-google-play-total-height: 552px
+$s-google-play-image: '../img/sprite.png'
+$s-google-play: (0px, 360px, 0px, -360px, 280px, 90px, 908px, 552px, '../img/sprite.png', 's-google-play', )
+$s-google-play-2x-name: 's-google-play@2x'
+$s-google-play-2x-x: 0px
+$s-google-play-2x-y: 180px
+$s-google-play-2x-offset-x: 0px
+$s-google-play-2x-offset-y: -180px
+$s-google-play-2x-width: 560px
+$s-google-play-2x-height: 180px
+$s-google-play-2x-total-width: 908px
+$s-google-play-2x-total-height: 552px
+$s-google-play-2x-image: '../img/sprite.png'
+$s-google-play-2x: (0px, 180px, 0px, -180px, 560px, 180px, 908px, 552px, '../img/sprite.png', 's-google-play@2x', )
+$s-logo-name: 's-logo'
+$s-logo-x: 0px
+$s-logo-y: 450px
+$s-logo-offset-x: 0px
+$s-logo-offset-y: -450px
+$s-logo-width: 174px
+$s-logo-height: 102px
+$s-logo-total-width: 908px
+$s-logo-total-height: 552px
+$s-logo-image: '../img/sprite.png'
+$s-logo: (0px, 450px, 0px, -450px, 174px, 102px, 908px, 552px, '../img/sprite.png', 's-logo', )
+$s-logo-2x-name: 's-logo@2x'
+$s-logo-2x-x: 560px
+$s-logo-2x-y: 0px
+$s-logo-2x-offset-x: -560px
+$s-logo-2x-offset-y: 0px
+$s-logo-2x-width: 348px
+$s-logo-2x-height: 204px
+$s-logo-2x-total-width: 908px
+$s-logo-2x-total-height: 552px
+$s-logo-2x-image: '../img/sprite.png'
+$s-logo-2x: (560px, 0px, -560px, 0px, 348px, 204px, 908px, 552px, '../img/sprite.png', 's-logo@2x', )
+$spritesheet-width: 908px
+$spritesheet-height: 552px
+$spritesheet-image: '../img/sprite.png'
+$spritesheet-sprites: ($s-app-store, $s-app-store-2x, $s-baloon-end, $s-baloon-end-2x, $s-google-play, $s-google-play-2x, $s-logo, $s-logo-2x, )
+$spritesheet: (908px, 552px, '../img/sprite.png', $spritesheet-sprites, )
+
+/*
+  The provided mixins are intended to be used with the array-like variables
+
+  .icon-home
+    @include sprite-width($icon-home)
+
+  .icon-email
+    @include sprite($icon-email)
+
+  Example usage in HTML:
+    `display: block` sprite:
+    <div class="icon-home"></div>
+
+  To change `display` (e.g. `display: inline-block;`), we suggest using a common CSS class:
+    // CSS
+    .icon {
+      display: inline-block;
+    }
+
+    // HTML
+    <i class="icon icon-home"></i>
+  */
+@mixin sprite-width($sprite)
+  width: nth($sprite, 5)
+
+@mixin sprite-height($sprite)
+  height: nth($sprite, 6)
+
+@mixin sprite-position($sprite)
+  $sprite-offset-x: nth($sprite, 3)
+  $sprite-offset-y: nth($sprite, 4)
+  background-position: $sprite-offset-x  $sprite-offset-y
+
+@mixin sprite-image($sprite)
+  $sprite-image: nth($sprite, 9)
+  background-image: url(#{$sprite-image})
+
+@mixin sprite($sprite)
+  @include sprite-image($sprite)
+  @include sprite-position($sprite)
+  @include sprite-width($sprite)
+  @include sprite-height($sprite)
+
+/*
+  The `sprites` mixin generates identical output to the CSS template
+    but can be overridden inside of SASS
+
+  @include sprites($spritesheet-sprites)
+  */
+@mixin sprites($sprites)
+  @each $sprite in $sprites
+    $sprite-name: nth($sprite, 10)
+    .#{$sprite-name}
+      @include sprite($sprite)
