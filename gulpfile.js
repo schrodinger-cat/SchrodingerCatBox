@@ -16,7 +16,6 @@ var del           = require('del');
 var runSequence   = require('run-sequence');
 var postcss       = require('gulp-postcss');
 var autoprefixer  = require('autoprefixer');
-var spritesmith   = require('gulp.spritesmith');
 
 // Development Tasks 
 // -----------------
@@ -55,29 +54,6 @@ gulp.task('jade', function() {
     .pipe(browserSync.reload({ // Reloading with Browser Sync
       stream: true
     }))
-});
-
-gulp.task('sprite', function() {
-  //del.sync('./src/media/css/sprite.sass');
-  var spriteData = 
-    gulp.src('./src/media/img/sprites/*.*')
-      .pipe(spritesmith({
-        imgName: 'sprite.png',
-        imgPath: '../img/sprite.png',
-        // retina support
-        // retinaSrcFilter: ['./src/media/img/sprites/*@2x.*'],
-        // retinaImgName: 'sprite@2x.png',
-        // retinaImgPath: '../img/sprite@2x.png',
-        cssName: 'sprite.sass',
-        cssFormat: 'sass',
-        algorithm: 'binary-tree',
-        cssVarMap: function(sprite) {
-          sprite.name = 's-' + sprite.name
-        }
-      }));
-
-  spriteData.img.pipe(gulp.dest('./build/media/img/'));
-  spriteData.css.pipe(gulp.dest('./src/media/css/'));
 });
 
 gulp.task('js', function() {
@@ -144,7 +120,7 @@ gulp.task('clean:build', function() {
 // ---------------
 
 gulp.task('default', function(callback) {
-  runSequence(['jade', 'sass', 'images', 'sprite', 'browserSync', 'watch'],
+  runSequence(['jade', 'sass', 'js', 'images', 'browserSync', 'watch'],
     callback
   )
 })
@@ -154,6 +130,7 @@ gulp.task('build', function(callback) {
     'clean:build',
     'sass',
     'jade',
+    'js',
     ['useref', 'images', 'sprite', 'fonts'],
     callback
   )
