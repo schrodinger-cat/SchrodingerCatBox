@@ -73,7 +73,6 @@ gulp.task('js', function() {
 gulp.task('watch', function() {
   gulp.watch('src/media/css/**/*.sass', ['sass']);
   gulp.watch('src/**/*.jade', ['jade']);
-  gulp.watch('src/media/img/sprites/*.*', ['sprite']);
   gulp.watch('src/media/js/**/*.js', ['js']);
 })
 
@@ -131,7 +130,7 @@ gulp.task('build', function(callback) {
     'sass',
     'jade',
     'js',
-    ['useref', 'images', 'sprite', 'fonts'],
+    ['useref', 'images', 'fonts'],
     callback
   )
 })
