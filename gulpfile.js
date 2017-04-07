@@ -3,7 +3,6 @@ var sass          = require('gulp-sass');
 var autoprefixer  = require('gulp-autoprefixer');
 var sourcemaps    = require('gulp-sourcemaps');
 var browserSync   = require('browser-sync');
-var jade          = require('gulp-jade');
 var useref        = require('gulp-useref');
 var uglify        = require('gulp-uglify');
 var gulpIf        = require('gulp-if');
@@ -16,6 +15,7 @@ var del           = require('del');
 var runSequence   = require('run-sequence');
 var postcss       = require('gulp-postcss');
 var autoprefixer  = require('autoprefixer');
+var pug           = require('gulp-pug');
 
 // Development Tasks 
 // -----------------
@@ -46,10 +46,10 @@ gulp.task('sass', function() {
     }));
 })
 
-gulp.task('jade', function() {
+gulp.task('pug', function() {
  
-  gulp.src('./src/*.jade')
-    .pipe(jade())
+  gulp.src('./src/*.pug')
+    .pipe(pug())
     .pipe(gulp.dest('./build/'))
     .pipe(browserSync.reload({ // Reloading with Browser Sync
       stream: true
@@ -72,7 +72,7 @@ gulp.task('js', function() {
 // Watchers
 gulp.task('watch', function() {
   gulp.watch('src/media/css/**/*.sass', ['sass']);
-  gulp.watch('src/**/*.jade', ['jade']);
+  gulp.watch('src/**/*.pug', ['pug']);
   gulp.watch('src/media/js/**/*.js', ['js']);
   gulp.watch('src/media/img/**/*.js', ['images']);
 })
@@ -82,7 +82,7 @@ gulp.task('watch', function() {
 
 // Optimizing CSS and JavaScript 
 gulp.task('useref', function() {
-  return gulp.src('src/**/*.jade')
+  return gulp.src('src')
     .pipe(useref())
     .pipe(gulpIf('*.js', uglify()))
     .pipe(gulpIf('*.css', cssnano()))
@@ -120,7 +120,7 @@ gulp.task('clean:build', function() {
 // ---------------
 
 gulp.task('default', function(callback) {
-  runSequence(['jade', 'sass', 'js', 'images', 'browserSync', 'watch'],
+  runSequence(['pug', 'sass', 'js', 'images', 'browserSync', 'watch'],
     callback
   )
 })
@@ -129,7 +129,7 @@ gulp.task('build', function(callback) {
   runSequence(
     'clean:build',
     'sass',
-    'jade',
+    'pug',
     'js',
     ['useref', 'images', 'fonts'],
     callback
