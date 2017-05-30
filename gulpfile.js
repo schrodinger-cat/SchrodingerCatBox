@@ -74,7 +74,7 @@ gulp.task('watch', function() {
   gulp.watch('src/media/css/**/*.sass', ['sass']);
   gulp.watch('src/**/*.pug', ['pug']);
   gulp.watch('src/media/js/**/*.js', ['js']);
-  gulp.watch('src/media/img/**/*.js', ['images']);
+  gulp.watch('src/media/img/**/*.*', ['images']);
 })
 
 // Optimization Tasks 
